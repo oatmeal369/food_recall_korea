@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>식품 회수 통계 대시보드</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">식품안전나라 I0490</p>
+        <h1>식품 회수 통계 대시보드</h1>
+      </div>
+      <div class="data-status" id="dataStatus">데이터 확인 중</div>
+    </header>
+
+    <main class="dashboard-shell">
+      <section class="summary-grid" id="summaryGrid" aria-label="요약 통계"></section>
+
+      <section class="control-panel" aria-label="검색 및 필터">
+        <div class="search-row">
+          <label class="field search-field">
+            <span>통합 검색</span>
+            <input id="searchInput" type="search" placeholder="제품명, 업체명, 회수사유, 바코드" autocomplete="off" />
+          </label>
+          <label class="field sort-field">
+            <span>정렬</span>
+            <select id="sortSelect">
+              <option value="newest">최신순</option>
+              <option value="oldest">오래된순</option>
+              <option value="grade">회수등급 높은 순</option>
+              <option value="productName">제품명 가나다순</option>
+              <option value="companyName">업체명 가나다순</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="filter-grid" id="filterGrid">
+          <label class="field">
+            <span>제품유형</span>
+            <select data-filter="productTypeCategory"></select>
+          </label>
+          <label class="field">
+            <span>세부 제품유형</span>
+            <select data-filter="detailProductType"></select>
+          </label>
+          <label class="field">
+            <span>회수사유 대분류</span>
+            <select data-filter="recallReasonMainCategory"></select>
+          </label>
+          <label class="field">
+            <span>회수사유 2차 분류</span>
+            <select data-filter="recallReasonSubCategory"></select>
+          </label>
+          <label class="field">
+            <span>회수등급</span>
+            <select data-filter="recallGrade"></select>
+          </label>
+          <label class="field">
+            <span>연도</span>
+            <select data-filter="registeredYear"></select>
+          </label>
+          <label class="field">
+            <span>월</span>
+            <select data-filter="registeredMonth"></select>
+          </label>
+          <label class="field">
+            <span>지역</span>
+            <select data-filter="regionSido"></select>
+          </label>
+          <label class="field">
+            <span>업체명</span>
+            <select data-filter="companyName"></select>
+          </label>
+          <label class="field">
+            <span>회수방법</span>
+            <select data-filter="recallMethodCategory"></select>
+          </label>
+        </div>
+
+        <div class="control-actions">
+          <button class="secondary-button" id="resetFilters" type="button">필터 초기화</button>
+          <p id="resultCount" class="result-count"></p>
+        </div>
+      </section>
+
+      <section class="chart-grid" aria-label="통계 차트">
+        <article class="chart-card">
+          <h2>월별 회수 건수</h2>
+          <div class="chart-frame"><canvas id="monthlyChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>연도별 회수 건수</h2>
+          <div class="chart-frame"><canvas id="yearlyChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>제품유형별 건수</h2>
+          <div class="chart-frame"><canvas id="productTypeChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>세부 제품유형 TOP 10</h2>
+          <div class="chart-frame"><canvas id="detailTypeChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>회수사유 대분류별 건수</h2>
+          <div class="chart-frame"><canvas id="reasonMainChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>회수사유 2차 분류 TOP 10</h2>
+          <div class="chart-frame"><canvas id="reasonSubChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>회수등급별 비율</h2>
+          <div class="chart-frame"><canvas id="gradeChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>업체 주소 기준 지역</h2>
+          <div class="chart-frame"><canvas id="regionChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>업체별 회수 등록 건수 TOP 10</h2>
+          <div class="chart-frame"><canvas id="companyChart"></canvas></div>
+        </article>
+        <article class="chart-card">
+          <h2>회수방법별 건수</h2>
+          <div class="chart-frame"><canvas id="methodChart"></canvas></div>
+        </article>
+      </section>
+
+      <section class="cards-section" aria-label="회수 제품 목록">
+        <div class="section-heading">
+          <h2>회수 제품 목록</h2>
+          <p>업체별 수치는 row 기준 회수 등록 건수입니다.</p>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+        <button class="secondary-button load-more" id="loadMoreButton" type="button">더 보기</button>
+      </section>
+    </main>
+  </body>
+</html>

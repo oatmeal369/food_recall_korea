@@ -1,0 +1,10 @@
+{
+  "name": "foodsafety-i0490-recall-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "update:data": "node scripts/fetch-i0490.mjs"
+  }
+}
