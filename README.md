@@ -38,6 +38,16 @@ npm run update:data
 
 키가 없으면 `sample` 키로 실행됩니다. 개인 서비스키는 커밋하지 마세요.
 
+## Vercel 배포
+
+Vercel에서는 `data/recalls.json`이 비어 있으면 `/api/recalls` 서버리스 함수가 자동으로 식품안전나라 API를 호출합니다.
+
+실제 운영 데이터 전체를 받으려면 Vercel 프로젝트 `Settings > Environment Variables`에 아래 값을 추가합니다.
+
+- `FOODSAFETY_SERVICE_KEY`: 식품안전나라에서 발급받은 서비스키
+
+서비스키를 넣지 않으면 `sample` 키로 동작하며, 샘플 row 일부만 표시될 수 있습니다.
+
 ## 집계 기준
 
 - 지역 통계는 실제 위해 발생 지역이 아니라 업체 주소 기준입니다.
